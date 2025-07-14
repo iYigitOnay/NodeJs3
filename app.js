@@ -15,14 +15,26 @@ var server = http.createServer((request, response) => {
       response.end();
     });
   } else if (request.url == "/create" && request.method == "POST") {
-    fs.appendFile("blog.txt", "Deneme İçeriği", (err) => {
-      if (err) {
-        console.log("Dosyaya yazma hatası:", err);
-      } else {
-        response.statusCode = 302;
-        response.setHeader("Location", "/blog");
-        response.end();
-      }
+    const data = [];
+
+    request.on("data", (chunk) => {
+      console.log("Gelen veri:", chunk.toString());
+      data.push(chunk);
+    });
+
+    request.on("end", () => {
+      const result = Buffer.concat(data).toString();
+      const parseData = result.split("=")[1];
+      console.log("Parçalanmış veri:", parseData);
+      fs.appendFile("blog.txt", parseData, (err) => {
+        if (err) {
+          console.log("Dosyaya yazma hatası:", err);
+        } else {
+          response.statusCode = 302;
+          response.setHeader("Location", "/blog");
+          response.end();
+        }
+      });
     });
   } else if (request.url === "/create") {
     fs.readFile("create.html", (error, html) => {
