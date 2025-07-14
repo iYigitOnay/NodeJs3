@@ -14,6 +14,12 @@ var server = http.createServer((request, response) => {
       response.write(html);
       response.end();
     });
+  } else if (request.url === "/create") {
+    fs.readFile("create.html", (error, html) => {
+      response.writableHead(200, { "Content-Type": "text/html" });
+      response.write(html);
+      response.end();
+    });
   } else {
     fs.readFile("404.html", (error, html) => {
       response.writeHead(404, { "Content-Type": "text/html" });
