@@ -5,16 +5,11 @@ var server = http.createServer((request, response) => {
   if (request.url === "/") {
     fs.readFile("index.html", (err, html) => {
       response.writeHead(200, { "Content-Type": "text/html" });
-<<<<<<< HEAD
       response.write(html); // ← HTML içeriğini yaz
-=======
-      response.write();
->>>>>>> origin/main
       response.end();
     });
   } else if (request.url === "/blog") {
     fs.readFile("blog.html", (error, html) => {
-<<<<<<< HEAD
       response.writeHead(200, { "Content-Type": "text/html" });
       response.write(html);
       response.end();
@@ -23,28 +18,17 @@ var server = http.createServer((request, response) => {
     fs.readFile("create.html", (error, html) => {
       response.writableHead(200, { "Content-Type": "text/html" });
       response.write(html);
-=======
-      response.writeHead(200, { "content-type": "text/html" });
-      response.write();
->>>>>>> origin/main
       response.end();
     });
   } else {
     fs.readFile("404.html", (error, html) => {
       response.writeHead(404, { "Content-Type": "text/html" });
-<<<<<<< HEAD
       response.write(html);
-=======
-      response.write();
->>>>>>> origin/main
       response.end();
     });
   }
 });
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/main
 server.listen(3000, () => {
   console.log("Sunucu 3000 portunda çalışıyor...");
 });
