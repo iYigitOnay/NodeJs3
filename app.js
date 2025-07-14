@@ -14,9 +14,19 @@ var server = http.createServer((request, response) => {
       response.write(html);
       response.end();
     });
+  } else if (request.url == "/create" && request.method == "POST") {
+    fs.appendFile("blog.txt", "Deneme İçeriği", (err) => {
+      if (err) {
+        console.log("Dosyaya yazma hatası:", err);
+      } else {
+        response.statusCode = 302;
+        response.setHeader("Location", "/blog");
+        response.end();
+      }
+    });
   } else if (request.url === "/create") {
     fs.readFile("create.html", (error, html) => {
-      response.writableHead(200, { "Content-Type": "text/html" });
+      response.writeHead(200, { "Content-Type": "text/html" });
       response.write(html);
       response.end();
     });
